@@ -1,0 +1,21 @@
+# environments & dependencies
+backend/.venv/
+frontend/node_modules/
+frontend/dist/
+__pycache__/
+.pytest_cache/
+*.pyc
+.DS_Store
+
+# secrets
+backend/.env
+frontend/.env.local
+
+# generated data (rebuilt by ./run.sh from Sentinel archives)
+backend/data/*
+!backend/data/global/
+
+# video production workspace
+video/
+*.mp4
+*.srt

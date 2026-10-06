@@ -1,0 +1,13 @@
+# docker compose up  →  UI http://localhost:5173 · API http://localhost:8000/docs
+# Requires the cached data (backend/data/cache) produced by scripts/*.py (committed demo cache or ./run.sh once).
+services:
+  api:
+    build: ./backend
+    ports: ["8000:8000"]
+    volumes: ["./backend/data:/app/data", "./backend/models:/app/models", "./backend/configs:/app/configs"]
+  web:
+    build: ./frontend
+    ports: ["5173:5173"]
+    environment:
+      - VITE_PROXY_TARGET=http://api:8000
+    depends_on: [api]
