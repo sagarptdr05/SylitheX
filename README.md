@@ -1,6 +1,12 @@
+<p align="center"><img src="frontend/public/images/earth-horizon.jpg" alt="Night-side Earth from orbit" width="100%"></p>
+
 # TerraTrust AI
 
 > **Before AI trusts Earth, TerraTrust verifies it.**
+
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688?logo=fastapi&logoColor=white) ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black) ![Sentinel](https://img.shields.io/badge/data-Sentinel--1%20%7C%20Sentinel--2-0B5394) ![Tests](https://img.shields.io/badge/tests-87%20passing-2EA44F) ![License](https://img.shields.io/badge/license-MIT-blue)
+
+**Contents:** [Quick start](#quick-start) · [Accounts](#accounts--access) · [Interface](#interface-v2-earth-intelligence-console) · [API](#api) · [Architecture](#architecture) · [Limitations](#limitations)
 
 TerraTrust is a trust layer (data observability) for multi-sensor Earth-observation data. It checks Sentinel-1 SAR and Sentinel-2 optical imagery **before** downstream AI models use it, for agriculture, disaster response, climate monitoring and urban planning. Every scene gets:
 
@@ -22,6 +28,10 @@ Problem statement **ST-03**: analyze incoming data → compare across sensors �
 - API + Swagger: http://localhost:8000/docs
 
 The first run downloads the data, trains the models and precomputes the scenes (~6 min). After that, the demo never waits on the network.
+
+**Requirements:** Python 3.11+, Node.js 20+, and internet access on the first run (Sentinel data comes from Microsoft Planetary Computer). Copy `backend/.env.example` to `backend/.env` to set API keys and the alert webhook.
+
+**Judge demo in 3 minutes:** sign in with the demo account → **Overview** (pick *Corrupted* to watch the pipeline turn red) → **Simulation** (arm faults, *Run simulation*, compare the carbon error with and without TerraTrust) → **Provenance** (trace the result back to the Sentinel product) → **Reports** (Trust Passport with QR verification).
 
 ## Accounts & access
 
@@ -46,7 +56,7 @@ See [`docs/INNOVATION.md`](docs/INNOVATION.md) for the market-gap map, ranking a
 
 API: `GET /api/scene/{id}/fitness | preflight?use_case= | silent | impact | fallback?use_case= | reproduce | intelligence`, plus `GET /api/intelligence/location`.
 
-## Interface (v2: dark Earth-intelligence console)
+## Interface (v2: Earth-intelligence console)
 
 The UI follows the data story: **observe → inspect → trust → trace → analyse → decide**. Every number comes from the API, and simplified science is labelled.
 
