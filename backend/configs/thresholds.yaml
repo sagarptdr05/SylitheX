@@ -1,0 +1,34 @@
+tile_size: 96              # px (10 m) -> 960 m tiles, 8x8 grid on the 7.68 km AOI
+status:
+  pass: 80                 # >= pass  -> PASS
+  warning: 50              # >= warning -> WARNING, else BLOCKED
+gate_rules:
+  max_cloud_cover: 60      # % -> BLOCKED
+  min_sensor_agreement: 20 # % -> BLOCKED
+  max_missing_pixels: 30   # % -> BLOCKED
+  max_impossible_pct: 5    # % physically impossible values (e.g. NDVI > 1) -> BLOCKED
+  max_reconstruction: 40   # % -> cap at WARNING
+  drift_agreement_cap: 50  # HIGH drift AND agreement below this -> cap at WARNING
+reconstruction_penalty:
+  max_points: 30           # sigmoid ceiling
+  midpoint: 0.30           # reconstruction ratio where penalty = max/2
+  steepness: 0.06
+aggregation:
+  worst_tile_weight: 0.15  # scene = (1-w)*mean + w*mean(worst 10% tiles)
+recovery:
+  window_days: 45
+s1_match_days: 12
+false_confidence:
+  min_visual_quality: 85
+  max_agreement: 60
+  max_temporal: 60
+temporal:
+  z_flag: 3.5              # robust z above this -> REQUIRES VALIDATION
+  s1_min_change_db: 1.0
+calibration:
+  z_flag: 4.0              # band gain deviation (in natural-variability sigmas) -> flag
+drift:
+  psi_medium: 0.10
+  psi_high: 0.25
+webhook:
+  url: ""                  # set to e.g. https://hooks.slack.com/... ; empty = log only

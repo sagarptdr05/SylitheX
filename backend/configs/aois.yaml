@@ -1,0 +1,22 @@
+# Built-in areas of interest. Users can add more from the UI (stored in data/aois/custom.json).
+# grid_px x 10 m = AOI side length; must be a multiple of tile_size (96).
+nashik:
+  name: Nashik · Niphad agri belt
+  region: Nashik district, Maharashtra
+  lat: 20.08
+  lon: 74.03
+  grid_px: 768
+  theme: Agriculture
+  description: Grapes, onion and sugarcane on the Godavari plain. Rabi-season clear skies, heavy SW-monsoon cloud.
+  date_range: 2025-09-01/2026-09-30
+  demos: {healthy: "20260304", cloudy: "20260910", suspicious: "20260503", falseconf: "20260118", event: "20260413"}
+vasai-virar:
+  name: Vasai · Nallasopara · Virar
+  region: Palghar district, Maharashtra (Mumbai Metropolitan Region)
+  lat: 19.425
+  lon: 72.825
+  grid_px: 960
+  theme: Urban + coastal
+  description: Fast-growing suburbs of Nallasopara and Virar, coastal wetlands, salt pans, mangroves and paddy. Some of the heaviest monsoon rainfall in Maharashtra.
+  date_range: 2025-09-01/2026-09-30
+  demos: {healthy: "20260210", cloudy: "20260928", suspicious: "20260126", falseconf: "20260106", event: "20260312"}

@@ -1,0 +1,9 @@
+# Default (task-independent) Trust Score weights. Must sum to 1.0.
+completeness: 0.15
+cloud: 0.15
+noise: 0.10
+sensor_agreement: 0.20
+temporal: 0.15
+anomaly: 0.10
+drift: 0.10
+reconstruction: 0.05

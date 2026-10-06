@@ -1,0 +1,25 @@
+crop_monitoring:
+  name: Crop Monitoring
+  description: Optical-first vegetation analytics; clouds and temporal stability matter most.
+  icon: sprout
+  weights: {completeness: 0.12, cloud: 0.22, noise: 0.06, sensor_agreement: 0.14, temporal: 0.22, anomaly: 0.10, drift: 0.08, reconstruction: 0.06}
+  reconstruction_tolerance: 0.8   # multiplier on reconstruction penalty
+flood_detection:
+  name: Flood Detection
+  description: SAR-driven water mapping; sees through monsoon clouds, needs strong S1/S2 agreement.
+  icon: waves
+  weights: {completeness: 0.14, cloud: 0.04, noise: 0.16, sensor_agreement: 0.34, temporal: 0.12, anomaly: 0.12, drift: 0.04, reconstruction: 0.04}
+  reconstruction_tolerance: 0.4
+  sar_primary: true
+urban_planning:
+  name: Urban Planning
+  description: Balanced, slowly varying built-up mapping; temporal swings matter less.
+  icon: building
+  weights: {completeness: 0.18, cloud: 0.16, noise: 0.12, sensor_agreement: 0.20, temporal: 0.06, anomaly: 0.12, drift: 0.10, reconstruction: 0.06}
+  reconstruction_tolerance: 1.0
+climate_monitoring:
+  name: Climate Monitoring
+  description: Long-term trend analysis; distribution drift and temporal consistency dominate.
+  icon: thermometer
+  weights: {completeness: 0.12, cloud: 0.10, noise: 0.06, sensor_agreement: 0.14, temporal: 0.22, anomaly: 0.10, drift: 0.22, reconstruction: 0.04}
+  reconstruction_tolerance: 1.3

@@ -1,0 +1,83 @@
+# Fit-for-purpose requirement profiles (expert-set prototypes, editable).
+# metric names: trust, uncertainty, cloud_shadow, missing, recon, unrecovered, impossible, agreement, has_s1, noise,
+#               temporal, drift_rank (0 LOW,1 MEDIUM,2 HIGH), calib_ok, silent_risk, real_data, gate_pass
+# hard: true  -> failing it means NO-GO;  hard: false -> CONDITIONAL
+lulc:
+  name: Land-use / land-cover mapping
+  short: LULC
+  icon: map
+  readiness: urban_planning
+  product: Land-cover map
+  requires:
+    - {metric: trust, op: ">=", value: 70, hard: true}
+    - {metric: missing, op: "<=", value: 10, hard: true}
+    - {metric: impossible, op: "<=", value: 1, hard: true}
+    - {metric: cloud_shadow, op: "<=", value: 30, hard: false}
+    - {metric: recon, op: "<=", value: 30, hard: false}
+crop:
+  name: Crop health monitoring (NDVI)
+  short: Crop
+  icon: sprout
+  readiness: crop_monitoring
+  product: Crop health map
+  requires:
+    - {metric: trust, op: ">=", value: 75, hard: true}
+    - {metric: calib_ok, op: ">=", value: 1, hard: true}
+    - {metric: impossible, op: "<=", value: 0.5, hard: true}
+    - {metric: cloud_shadow, op: "<=", value: 20, hard: false}
+    - {metric: recon, op: "<=", value: 20, hard: false}
+    - {metric: temporal, op: ">=", value: 70, hard: false}
+flood:
+  name: Flood mapping (SAR-first)
+  short: Flood
+  icon: waves
+  readiness: flood_detection
+  product: Flood extent map
+  sar_capable: true
+  requires:
+    - {metric: has_s1, op: ">=", value: 1, hard: true}
+    - {metric: noise, op: ">=", value: 50, hard: true}
+    - {metric: missing, op: "<=", value: 15, hard: true}
+    - {metric: agreement, op: ">=", value: 60, hard: false}
+change:
+  name: Change detection
+  short: Change
+  icon: activity
+  readiness: climate_monitoring
+  product: Change map
+  requires:
+    - {metric: trust, op: ">=", value: 75, hard: true}
+    - {metric: calib_ok, op: ">=", value: 1, hard: true}
+    - {metric: temporal, op: ">=", value: 75, hard: false}
+    - {metric: drift_rank, op: "<=", value: 1, hard: false}
+    - {metric: recon, op: "<=", value: 15, hard: false}
+    - {metric: silent_risk, op: "<=", value: 45, hard: false}
+biomass:
+  name: Biomass estimation
+  short: Biomass
+  icon: trees
+  readiness: crop_monitoring
+  product: Biomass estimate
+  requires:
+    - {metric: trust, op: ">=", value: 85, hard: true}
+    - {metric: has_s1, op: ">=", value: 1, hard: true}
+    - {metric: recon, op: "<=", value: 5, hard: true}
+    - {metric: agreement, op: ">=", value: 80, hard: true}
+    - {metric: silent_risk, op: "<=", value: 20, hard: true}
+    - {metric: drift_rank, op: "<=", value: 0, hard: false}
+    - {metric: uncertainty, op: "<=", value: 4, hard: false}
+carbon:
+  name: Carbon MRV (high confidence)
+  short: Carbon MRV
+  icon: leaf
+  readiness: climate_monitoring
+  product: Carbon MRV report
+  requires:
+    - {metric: gate_pass, op: ">=", value: 1, hard: true}
+    - {metric: real_data, op: ">=", value: 1, hard: true}
+    - {metric: trust, op: ">=", value: 90, hard: true}
+    - {metric: recon, op: "<=", value: 2, hard: true}
+    - {metric: agreement, op: ">=", value: 85, hard: true}
+    - {metric: silent_risk, op: "<=", value: 15, hard: true}
+    - {metric: drift_rank, op: "<=", value: 0, hard: true}
+    - {metric: uncertainty, op: "<=", value: 3, hard: false}
