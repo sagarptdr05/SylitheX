@@ -1,6 +1,6 @@
 <p align="center"><img src="frontend/public/images/earth-horizon.jpg" alt="Night-side Earth from orbit" width="100%"></p>
 
-# TerraTrust AI
+# TerraTrust AI  
 
 > **Before AI trusts Earth, TerraTrust verifies it.**
 
