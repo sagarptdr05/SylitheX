@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Design tokens (RGB triples) ----------------------------------------------------------
+   Dark space-tech foundation. Colour carries meaning: green = trusted, amber = warning,
+   red = critical, blue/cyan = information. */
+:root {
+  color-scheme: light;
+  --bg: 255 255 255;      /* clean white */
+  --surface: 255 255 255; /* cards */
+  --surface-2: 245 247 250; /* inset areas, inputs */
+  --surface-3: 236 240 245; /* hover, tracks */
+  --line: 228 233 240;
+  --line-2: 203 213 225;
+  --ink: 15 23 42;
+  --ink-2: 71 85 105;
+  --ink-3: 110 123 145;
+  --strong: 15 23 42;     /* headings & key numbers */
+  --primary: 37 99 235;   /* scientific blue */
+  --primary-hover: 29 78 216;
+  --cyan: 8 145 178;
+  --pass: 22 163 74;
+  --warn: 217 119 6;
+  --block: 220 38 38;
+}
+
+/* Dark "space" panels (globe hero etc.) keep the night palette inside a white page */
+.theme-dark {
+  color-scheme: dark;
+  --bg: 6 11 22; --surface: 12 20 36; --surface-2: 17 27 47; --surface-3: 24 37 62;
+  --line: 32 47 74; --line-2: 48 67 100; --ink: 232 238 247; --ink-2: 160 174 198; --ink-3: 108 124 152;
+  --strong: 255 255 255; --primary: 86 145 255; --primary-hover: 120 168 255; --cyan: 45 212 235;
+  --pass: 52 211 153; --warn: 251 191 36; --block: 248 89 96;
+  color: rgb(var(--ink));
+}
+
+html, body, #root { min-height: 100%; }
+body {
+  @apply bg-bg text-ink font-sans antialiased;
+  font-feature-settings: 'cv11', 'ss01';
+}
+h1, h2, h3, h4 { @apply font-display tracking-tight; }
+::selection { background: rgb(var(--primary) / 0.35); }
+
+/* visible keyboard focus everywhere */
+:focus-visible { outline: 2px solid rgb(var(--primary)); outline-offset: 2px; border-radius: 6px; }
+
+@layer components {
+  .card { @apply bg-surface border border-line rounded-2xl shadow-card min-w-0; }
+  .card-pad { @apply p-5; }
+  .panel { @apply bg-surface-2/70 border border-line rounded-xl; }
+  .label { @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3; }
+  .num { @apply font-mono tabular-nums; }
+  .btn { @apply inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-primary text-white hover:bg-primary-hover shadow-[0_8px_24px_-10px_rgb(var(--primary)/0.9)] hover:-translate-y-px; }
+  .btn-ghost { @apply btn bg-surface border border-line text-ink hover:border-primary/50 hover:text-primary; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold; }
+  .input { @apply w-full rounded-xl border border-line bg-surface-2 px-3 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink-3 focus:border-primary focus:ring-4 focus:ring-primary/15; }
+  .hud-corners { position: relative; }
+  .hud-corners::before, .hud-corners::after {
+    content: ''; position: absolute; width: 14px; height: 14px; pointer-events: none; border-color: rgb(var(--cyan) / 0.7);
+  }
+  .hud-corners::before { top: 8px; left: 8px; border-top: 2px solid; border-left: 2px solid; border-color: inherit; }
+  .hud-corners::after { bottom: 8px; right: 8px; border-bottom: 2px solid; border-right: 2px solid; border-color: inherit; }
+  .grid-bg, .grid-bg-dark {
+    background-image:
+      linear-gradient(rgb(var(--primary) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--primary) / 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .checker {
+    background-color: #f1f5f9;
+    background-image: linear-gradient(45deg, #e2e8f0 25%, transparent 25%), linear-gradient(-45deg, #e2e8f0 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #e2e8f0 75%), linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+    background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  }
+  .skeleton {
+    @apply rounded-xl;
+    background: linear-gradient(90deg, rgb(var(--surface-2)) 0px, rgb(var(--surface-3)) 120px, rgb(var(--surface-2)) 240px);
+    background-size: 800px 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+  .text-gradient { @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-cyan to-pass; }
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: rgb(var(--line-2)); border-radius: 6px; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { scrollbar-width: none; }
+}
+
+
+.leaflet-container { font-family: Inter, sans-serif; background: #e9eef3; }
+.leaflet-control-attribution { font-size: 9px !important; }
+.range { -webkit-appearance: none; appearance: none; height: 6px; border-radius: 999px; background: rgb(var(--surface-3)); outline: none; }
+.range::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 4px solid rgb(var(--primary)); box-shadow: 0 0 0 4px rgb(var(--primary) / 0.2); cursor: pointer; transition: transform .15s; }
+.range::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.range::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 4px solid rgb(var(--primary)); cursor: pointer; }
+
+/* recharts on dark */
+.recharts-cartesian-grid line { stroke: rgb(var(--line)) !important; }
+.recharts-text { fill: rgb(var(--ink-3)); }
+.recharts-default-tooltip { background: rgb(var(--surface)) !important; border: 1px solid rgb(var(--line-2)) !important; border-radius: 12px !important; color: rgb(var(--ink)) !important; }
+.recharts-legend-item-text { color: rgb(var(--ink-2)) !important; }
+
+/* grid items may shrink below their content width (long IDs, charts) → no horizontal scroll on phones */
+.grid > * { min-width: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  :root { color-scheme: light; --bg: 255 255 255; --surface: 255 255 255; --surface-2: 246 248 251; --surface-3: 238 242 247; --line: 220 226 235; --line-2: 200 210 225; --ink: 15 23 42; --ink-2: 71 85 105; --ink-3: 120 135 155; }
+  body { background-image: none; }
+}
